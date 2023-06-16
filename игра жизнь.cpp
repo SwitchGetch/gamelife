@@ -132,15 +132,6 @@ void NewGeneration(vector<string>& field, vector<int> B, vector<int> S, int x, i
     }
 }
 
-void func()
-{
-    for (int i = 1; i < 16; i++)
-    {
-        SetConsoleTextAttribute(hand, i);
-        cout << i << endl;
-    }
-}
-
 int main()
 {
     srand(time(NULL));
