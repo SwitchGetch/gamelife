@@ -1,4 +1,4 @@
-﻿#include <iostream>
+#include <iostream>
 #include <fstream>
 #include <vector>
 #include <string>
@@ -68,7 +68,7 @@ void NewGeneration(vector<string>& field, vector<int> B, vector<int> S, int x, i
 
     for (int i = 1; i < x - 1; i++)
     {
-        for (int j = 1; j < x - 1; j++)
+        for (int j = 1; j < y - 1; j++)
         {
             int temp = 0;
 
