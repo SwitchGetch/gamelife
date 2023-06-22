@@ -64,34 +64,55 @@ void FieldOutput(vector<string>& field, int x, int y)
 
 void NewGeneration(vector<string>& field, vector<int> B, vector<int> S, int x, int y)
 {
-    vector<pair<int, int>> change;
+    vector<vector<int>> neighbours;
+
+    for (int i = 0; i < x; i++)
+    {
+        vector<int> temp;
+
+        for (int j = 0; j < y; j++)
+        {
+            temp.push_back(0);
+        }
+
+        neighbours.push_back(temp);
+    }
 
     for (int i = 1; i < x - 1; i++)
     {
         for (int j = 1; j < y - 1; j++)
         {
-            int temp = 0;
-
-            for (int i0 = i - 1; i0 < i + 2; i0++)
+            if (field[i][j] == '*')
             {
-                for (int j0 = j - 1; j0 < j + 2; j0++)
+                for (int i0 = i - 1; i0 < i + 2; i0++)
                 {
-                    if (field[i0][j0] == '*')
+                    for (int j0 = j - 1; j0 < j + 2; j0++)
                     {
-                        temp++;
+                        if (i0 == i && j0 == j)
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            neighbours[i0][j0]++;
+                        }
                     }
                 }
             }
+        }
+    }
 
+    for (int i = 1; i < x - 1; i++)
+    {
+        for (int j = 1; j < y - 1; j++)
+        {
             if (field[i][j] == '*')
             {
-                temp--;
-
                 bool death = true;
 
                 for (int i0 = 0; i0 < S.size(); i0++)
                 {
-                    if (temp == S[i0])
+                    if (neighbours[i][j] == S[i0])
                     {
                         death = false;
 
@@ -101,33 +122,21 @@ void NewGeneration(vector<string>& field, vector<int> B, vector<int> S, int x, i
 
                 if (death)
                 {
-                    change.push_back({ i, j });
+                    field[i][j] = ' ';
                 }
             }
             else
             {
                 for (int i0 = 0; i0 < B.size(); i0++)
                 {
-                    if (temp == B[i0])
+                    if (neighbours[i][j] == B[i0])
                     {
-                        change.push_back({ i, j });
+                        field[i][j] = '*';
 
                         break;
                     }
                 }
             }
-        }
-    }
-
-    for (int i = 0; i < change.size(); i++)
-    {
-        if (field[change[i].first][change[i].second] == '*')
-        {
-            field[change[i].first][change[i].second] = ' ';
-        }
-        else
-        {
-            field[change[i].first][change[i].second] = '*';
         }
     }
 }
